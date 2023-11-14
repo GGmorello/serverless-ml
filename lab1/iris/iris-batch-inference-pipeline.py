@@ -1,28 +1,17 @@
 import os
-import modal
-    
-LOCAL=True
-
-if LOCAL == False:
-   stub = modal.Stub()
-   hopsworks_image = modal.Image.debian_slim().pip_install(["hopsworks","joblib","seaborn","sklearn==1.1.1","dataframe-image"])
-   @stub.function(image=hopsworks_image, schedule=modal.Period(days=1), secret=modal.Secret.from_name("HOPSWORKS_API_KEY"))
-   def f():
-       g()
+import pandas as pd
+import hopsworks
+import joblib
+import datetime
+from PIL import Image
+from datetime import datetime
+import dataframe_image as dfi
+from sklearn.metrics import confusion_matrix
+from matplotlib import pyplot
+import seaborn as sns
+import requests
 
 def g():
-    import pandas as pd
-    import hopsworks
-    import joblib
-    import datetime
-    from PIL import Image
-    from datetime import datetime
-    import dataframe_image as dfi
-    from sklearn.metrics import confusion_matrix
-    from matplotlib import pyplot
-    import seaborn as sns
-    import requests
-
     project = hopsworks.login()
     fs = project.get_feature_store()
     
@@ -101,9 +90,6 @@ def g():
 
 
 if __name__ == "__main__":
-    if LOCAL == True :
-        g()
-    else:
-        with stub.run():
-            f()
+    g()
+
 
