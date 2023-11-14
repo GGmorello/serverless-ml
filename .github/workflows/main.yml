@@ -1,4 +1,4 @@
-name: Daily Feature Pipeline
+name: Daily Create Feature Pipeline
 
 on:
     schedule:
