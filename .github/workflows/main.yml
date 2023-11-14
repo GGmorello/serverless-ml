@@ -4,6 +4,7 @@ on:
     push:
         branches:
             - main
+
     schedule:
         - cron: "0 0 * * *" # Run every day at midnight
 
@@ -22,6 +23,9 @@ jobs:
             - name: Run script
               run: 
                 python lab1/wine/wine-feature-pipeline-daily.py
+              env:
+                HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
+
     iris-feature-pipeline-daily:
         runs-on: ubuntu-latest
         steps:
@@ -36,5 +40,7 @@ jobs:
                 python -m pip install --upgrade pip
                 pip install pandas hopsworks
             - name: Run script
-              run: python lab1/iris/iris-feature-pipeline-daily.py
-
+              run: 
+                python lab1/iris/iris-feature-pipeline-daily.py
+              env:
+                HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
