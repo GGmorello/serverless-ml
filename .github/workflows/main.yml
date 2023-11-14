@@ -36,3 +36,51 @@ jobs:
                     pip install pandas hopsworks
             - name: Run script
                 run: python lab1/iris/iris-feature-pipeline-daily.py
+
+name: Daily Python Script
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Run every day at midnight UTC
+
+jobs:
+  run_python_script_job_1:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        pip install pandas hopsworks
+
+    - name: Run Python script
+      run: |
+        python lab1/wine/wine-feature-pipeline-daily.py
+
+  run_python_script_job_2:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        pip install pandas hopsworks
+
+
+    - name: Run Python script
+      run: |
+        python lab1/iris/iris-feature-pipeline-daily.py
