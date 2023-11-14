@@ -1,4 +1,4 @@
-name: Daily Wine Feature Pipeline
+name: Daily Feature Pipeline
 
 on:
     schedule:
