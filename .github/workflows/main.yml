@@ -19,7 +19,6 @@ jobs:
             - name: Run script
               run: 
                 python lab1/wine/wine-feature-pipeline-daily.py
-
     iris-feature-pipeline-daily:
         runs-on: ubuntu-latest
         steps:
