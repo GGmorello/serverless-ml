@@ -47,3 +47,5 @@ jobs:
             - name: Run inference
               run: 
                 python lab1/iris/iris-batch-inference-pipeline.py
+              env:
+                HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
