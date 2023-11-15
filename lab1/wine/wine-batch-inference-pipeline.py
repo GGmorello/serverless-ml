@@ -38,6 +38,8 @@ def g():
     #print(y_pred)
     offset = 1
     quality = y_pred[y_pred.size-offset]
+    print("printed quality", quality)
+
     flower_url = "https://raw.githubusercontent.com/featurestoreorg/serverless-ml-course/main/src/01-module/assets/" + quality + ".png"
     print("Wine predicted: " + quality)
     img = Image.open(requests.get(flower_url, stream=True).raw)            
