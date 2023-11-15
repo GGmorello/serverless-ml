@@ -38,11 +38,15 @@ def g():
     #print(y_pred)
     offset = 1
     quality = y_pred[y_pred.size-offset]
-    print("printed quality", quality)
+    #print("printed quality", quality)
 
-    flower_url = "https://raw.githubusercontent.com/featurestoreorg/serverless-ml-course/main/src/01-module/assets/" + quality + ".png"
-    print("Wine predicted: " + quality)
-    img = Image.open(requests.get(flower_url, stream=True).raw)            
+    #flower_url = "https://raw.githubusercontent.com/featurestoreorg/serverless-ml-course/main/src/01-module/assets/" + quality + ".png"
+    image_url = "https://raw.githubusercontent.com/GGmorello/serverless-ml/main/lab1/wine/numbers/" + str(quality) + ".png"
+    
+    print("Wine predicted: " + str(quality))
+    resp = requests.get(image_url, stream=True)
+    print(resp)
+    img = Image.open(requests.get(image_url, stream=True).raw)            
     img.save("./latest_quality.png")
     dataset_api = project.get_dataset_api()    
     dataset_api.upload("./latest_quality.png", "Resources/images", overwrite=True)
@@ -50,9 +54,12 @@ def g():
     iris_fg = fs.get_feature_group(name="wine", version=1)
     df = iris_fg.read() 
     #print(df)
-    label = df.iloc[-offset]["variety"]
-    label_url = "https://raw.githubusercontent.com/featurestoreorg/serverless-ml-course/main/src/01-module/assets/" + label + ".png"
-    print("Flower actual: " + label)
+    label = df.iloc[-offset]["quality"]
+    #label_url = "https://raw.githubusercontent.com/featurestoreorg/serverless-ml-course/main/src/01-module/assets/" + label + ".png"
+    label_url = "https://raw.githubusercontent.com/GGmorello/serverless-ml/main/lab1/wine/numbers/" + str(int(label)) + ".png"
+    print("Actual wine quality: " + str(label))
+    resp = requests.get(label_url, stream=True)
+    print(resp)
     img = Image.open(requests.get(label_url, stream=True).raw)            
     img.save("./actual_quality.png")
     dataset_api.upload("./actual_quality.png", "Resources/images", overwrite=True)
@@ -62,6 +69,7 @@ def g():
                                                 primary_key=["datetime"],
                                                 description="Wine Prediction/Outcome Monitoring"
                                                 )
+    
     
     now = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
     data = {
@@ -77,6 +85,7 @@ def g():
     # the insertion was done asynchronously, so it will take ~1 min to land on App
     history_df = pd.concat([history_df, monitor_df])
 
+    print("perasa")
 
     df_recent = history_df.tail(4)
     dfi.export(df_recent, './df_recent.png', table_conversion = 'matplotlib')
