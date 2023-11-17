@@ -22,7 +22,7 @@ def generate_wine(quality, fixed_acidity_range, volatile_acidity_range, citric_a
         "sulphates": [random.uniform(sulphates_range[0], sulphates_range[1])],
         "alcohol": [random.uniform(alcohol_range[0], alcohol_range[1])]
     })
-    df['quality'] = quality
+    df['quality'] = int(quality)
     return df
 
 def get_random_wine():
