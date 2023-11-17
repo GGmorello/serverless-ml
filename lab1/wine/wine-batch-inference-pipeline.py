@@ -1,14 +1,14 @@
 import os
-import modal
+#import modal
     
 LOCAL=True
 
-if LOCAL == False:
-   stub = modal.Stub()
-   hopsworks_image = modal.Image.debian_slim().pip_install(["hopsworks","joblib","seaborn","sklearn==1.1.1","dataframe-image"])
-   @stub.function(image=hopsworks_image, schedule=modal.Period(days=1), secret=modal.Secret.from_name("HOPSWORKS_API_KEY"))
-   def f():
-       g()
+# if LOCAL == False:
+#    stub = modal.Stub()
+#    hopsworks_image = modal.Image.debian_slim().pip_install(["hopsworks","joblib","seaborn","sklearn==1.1.1","dataframe-image"])
+#    @stub.function(image=hopsworks_image, schedule=modal.Period(days=1), secret=modal.Secret.from_name("HOPSWORKS_API_KEY"))
+#    def f():
+#        g()
 
 def g():
     import pandas as pd
