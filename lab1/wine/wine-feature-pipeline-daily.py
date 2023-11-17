@@ -27,7 +27,7 @@ def generate_wine(quality, fixed_acidity_range, volatile_acidity_range, citric_a
 
 def get_random_wine():
     """
-    Returns a DataFrame containing one random iris flower
+    Returns a DataFrame containing one random wine
     """
     quality = random.uniform(3, 8)
     wine = generate_wine(quality,fixed_acidity_range=(4.6, 15.9), volatile_acidity_range=(0.12, 1.58), citric_acid_range=(0,1),
