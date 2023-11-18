@@ -46,13 +46,15 @@ def g():
     print("Wine predicted: " + str(quality))
     resp = requests.get(image_url, stream=True)
     print(resp)
-    img = Image.open(requests.get(image_url, stream=True).raw)            
+    img = Image.open(requests.get(image_url, stream=True).raw)
+    newsize = (100, 100)
+    img = img.resize(newsize)            
     img.save("./latest_quality.png")
     dataset_api = project.get_dataset_api()    
     dataset_api.upload("./latest_quality.png", "Resources/images", overwrite=True)
    
-    iris_fg = fs.get_feature_group(name="wine", version=1)
-    df = iris_fg.read() 
+    wine_fg = fs.get_feature_group(name="wine", version=1)
+    df = wine_fg.read() 
     #print(df)
     label = df.iloc[-offset]["quality"]
     #label_url = "https://raw.githubusercontent.com/featurestoreorg/serverless-ml-course/main/src/01-module/assets/" + label + ".png"
@@ -60,7 +62,8 @@ def g():
     print("Actual wine quality: " + str(label))
     resp = requests.get(label_url, stream=True)
     print(resp)
-    img = Image.open(requests.get(label_url, stream=True).raw)            
+    img = Image.open(requests.get(label_url, stream=True).raw)
+    img = img.resize(newsize)           
     img.save("./actual_quality.png")
     dataset_api.upload("./actual_quality.png", "Resources/images", overwrite=True)
     
