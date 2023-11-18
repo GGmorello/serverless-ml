@@ -62,8 +62,8 @@ def main():
 
     wine_df = get_random_wine()
 
-    iris_fg = fs.get_feature_group(name="wine", version=1)
-    iris_fg.insert(wine_df)
+    wine_fg = fs.get_feature_group(name="wine", version=1)
+    wine_fg.insert(wine_df)
 
 if __name__ == "__main__":
     main()
