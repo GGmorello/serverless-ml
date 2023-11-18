@@ -1,5 +1,6 @@
 import os
 #import modal
+import random
     
 LOCAL=True
 
@@ -23,11 +24,11 @@ def g():
     import seaborn as sns
     import requests
 
-    project = hopsworks.login()
+    project = hopsworks.login(project= "Scalable_ML_lab1")
     fs = project.get_feature_store()
     
     mr = project.get_model_registry()
-    model = mr.get_model("wine_model", version=1)
+    model = mr.get_model("wine_model", version=5)
     model_dir = model.download()
     model = joblib.load(model_dir + "/wine_model.pkl")
     
@@ -36,7 +37,10 @@ def g():
     
     y_pred = model.predict(batch_data)
     #print(y_pred)
-    offset = 1
+    
+    #offset = 1
+  
+    offset =  random.randint(1, y_pred.size)
     quality = y_pred[y_pred.size-offset]
     #print("printed quality", quality)
 
@@ -68,7 +72,7 @@ def g():
     dataset_api.upload("./actual_quality.png", "Resources/images", overwrite=True)
     
     monitor_fg = fs.get_or_create_feature_group(name="wine_predictions",
-                                                version=1,
+                                                version=2,
                                                 primary_key=["datetime"],
                                                 description="Wine Prediction/Outcome Monitoring"
                                                 )
@@ -91,8 +95,10 @@ def g():
     print("perasa")
 
     df_recent = history_df.tail(4)
-    dfi.export(df_recent, './df_recent.png', table_conversion = 'matplotlib')
-    dataset_api.upload("./df_recent.png", "Resources/images", overwrite=True)
+    dfi.export(df_recent, './wine_df_recent.png', table_conversion = 'matplotlib')
+    dataset_api.upload("./wine_df_recent.png", "Resources/images", overwrite=True)
+    
+    print(dataset_api.exists("Resources/images/wine_df_recent.png"))
     
     predictions = history_df[['prediction']]
     labels = history_df[['label']]
@@ -106,8 +112,8 @@ def g():
     
         cm = sns.heatmap(df_cm, annot=True)
         fig = cm.get_figure()
-        fig.savefig("./confusion_matrix.png")
-        dataset_api.upload("./confusion_matrix.png", "Resources/images", overwrite=True)
+        fig.savefig("./wine_confusion_matrix.png")
+        dataset_api.upload("./wine_confusion_matrix.png", "Resources/images", overwrite=True)
     else:
         print("You need 6 different quality predictions to create the confusion matrix.")
         print("Run the batch inference pipeline more times until you get 6 different wine flower predictions") 
@@ -116,7 +122,7 @@ def g():
 if __name__ == "__main__":
     if LOCAL == True :
         g()
-    else:
-        with stub.run():
-            f()
+    # else:
+    #     with stub.run():
+    #         f()
 

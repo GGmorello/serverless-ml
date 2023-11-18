@@ -57,7 +57,7 @@ def get_random_wine():
 def main():
     # Use github secrets to pass in the feature store password
 
-    project = hopsworks.login()
+    project = hopsworks.login(project= "Scalable_ML_lab1")
     fs = project.get_feature_store()
 
     wine_df = get_random_wine()
