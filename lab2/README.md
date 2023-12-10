@@ -15,11 +15,11 @@ This project is an attempt of finetuning Whisper Model from open AI for Automati
 
 Our finetuning method consists of:
 
-- Feature Pipeline: In our feature pipeline we utilize only a small 5% subset of the Common voice Italian dataset. Training was performed on Google Colab platform with a Tesla K80 GPU for a non premium account and we wanted to speed up the process. We utilize both the training and the test splits to perform inference and evaluate performance. We wrap a feature extractor object responsible for padding/truncating the audio to 30s and apply a mel-spectrogram transform and a pretrained Whisper Tokenizer object responsible for post processing our output to text format to a whisperprocessor object. This object doesnt change during training and we can store and reuse it when its needed. The processor object is applyied to our dataset which is saved in google drive so the processing is not required again when we resume the training. 
+- Feature Pipeline: In our feature pipeline we utilize only a small 5% subset of the Common voice Italian dataset. Training was performed on Google Colab platform with a Tesla K80 GPU for a non premium account and we wanted to speed up the process. We utilize both the training and the test splits to perform inference and evaluate performance. We wrap a feature extractor object responsible for padding/truncating the audio to 30s and apply a mel-spectrogram transform and a pretrained Whisper Tokenizer object responsible for post processing our output to text format to a whisperprocessor object. This object doesnt change during training and we can store and reuse it when its needed. The processor object is applied to our dataset which is saved in google drive so the processing is not required again when we resume the training. 
 
 - Training Pipeline: In our training pipeline we load the dataset as a subset of the Italian Common Voice dataset. We also load the small Whisper model from the Whisper family. The training is carried through the trainer method of hugging face and the evaluation metric used is the WER (word error) metric as used in most ASR tasks. 
 
-- User Interface: For demo purposes we implemented a gradio app that allows users to input data and perform inference in 3 ways. Audio directly from microphone , audio from a youtube url and audio from a file upload
+- User Interface: For demo purposes we implemented a gradio app that allows users to input data and perform inference in 3 ways. Audio directly from microphone , audio from a youtube url and audio from a file upload.
 
 
 ## Hyperparameters
