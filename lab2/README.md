@@ -37,7 +37,7 @@ For our training process we used the following hyperparameters in our seq2seqtra
 ## Possible Improvements
 
 ### Data Centric Approach
-- It is possible to improve model performance by increasing the number of training audio hours and their corresponding transciptions. Even when using golab GPU the training is slow and thus we had to use only a small subset as 5% of the Italian dataset. Moreover we face a limit of loading the whole dataset on Google Colab when it surpases 16GB. One solution could be to run the training locally on our own GPU or use Google Cloud.
+- It is possible to improve model performance by increasing the number of training audio hours and their corresponding transciptions. Even when using golab GPU the training is slow and thus we had to use only a small subset as 10% of the Italian dataset. Moreover we face a limit of loading the whole dataset on Google Colab when it surpases 16GB. One solution could be to run the training locally on our own GPU or use Google Cloud.
 
 ### Model Centric Approach
 - To improve performance we could use an other model from the Whisper Family with larger size. Other possible models are [Whisper Large](https://huggingface.co/openai/whisper-large) and [Whisper Large v2](https://huggingface.co/openai/whisper-large-v2). We only used the small model due to computational and memory restrictions. Model size is also closely related to dataset size as described above. 
